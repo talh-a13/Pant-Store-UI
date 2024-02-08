@@ -7,7 +7,7 @@ Welcome to the Plant Care App UI, developed by Talha Hussain. This user interfac
   https://www.behance.net/gallery/130319003/Plant-Store-App/modules/738816611
 
 
-- Username: tal-ha & Password: th
+- Username: flutterspark & Password: fs
 
 ## ✨ Features
 
