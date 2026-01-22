@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:plant_app/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:plant_app/view_models/shop_view_model.dart';
 import 'package:plant_app/models/plant.dart';
+
+import 'package:plant_app/screens/cart_screen.dart';
 
 class PlantDetails extends StatefulWidget {
   const PlantDetails({required this.plant, Key? key}) : super(key: key);
@@ -13,7 +17,6 @@ class PlantDetails extends StatefulWidget {
 }
 
 class _PlantDetailsState extends State<PlantDetails> {
-  bool favorite = false;
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
@@ -41,23 +44,25 @@ class _PlantDetailsState extends State<PlantDetails> {
                 ),
               ),
             ),
-            CircleAvatar(
-              backgroundColor: kDarkGreenColor,
-              radius: 20.0,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    favorite = !favorite;
-                  });
-                },
-                icon: Icon(
-                  favorite == true
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_border_rounded,
-                  color: Colors.white,
-                  size: 24.0,
-                ),
-              ),
+            Consumer<ShopViewModel>(
+              builder: (context, shop, child) {
+                return CircleAvatar(
+                  backgroundColor: kDarkGreenColor,
+                  radius: 20.0,
+                  child: IconButton(
+                    onPressed: () {
+                      shop.toggleFavorite(widget.plant);
+                    },
+                    icon: Icon(
+                      widget.plant.isFavorite
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_rounded,
+                      color: Colors.white,
+                      size: 24.0,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -70,7 +75,7 @@ class _PlantDetailsState extends State<PlantDetails> {
             color: kSpiritedGreen,
             padding: const EdgeInsets.only(top: 40.0),
             child: Hero(
-              tag: widget.plant.plantName,
+              tag: widget.plant.id,
               child: Image.asset(widget.plant.image),
             ),
           ),
@@ -213,7 +218,13 @@ class _PlantDetailsState extends State<PlantDetails> {
                               color: kDarkGreenColor,
                               size: 28.0,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              final shop = Provider.of<ShopViewModel>(context, listen: false);
+                              shop.addToCart(widget.plant, quantity);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('${widget.plant.plantName} added to cart')),
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -244,7 +255,11 @@ class _PlantDetailsState extends State<PlantDetails> {
                               ),
                             ],
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            final shop = Provider.of<ShopViewModel>(context, listen: false);
+                            shop.addToCart(widget.plant, quantity);
+                            Navigator.pushNamed(context, CartScreen.id);
+                          },
                         ),
                       ),
                     ],
@@ -428,7 +443,11 @@ class StarRating extends StatelessWidget {
       icon = Icons.star;
     }
     return GestureDetector(
-      onTap: () => onChanged!(index + 1.0),
+      onTap: () {
+        if (onChanged != null) {
+          onChanged!(index + 1.0);
+        }
+      },
       child: Icon(
         icon,
         color: color,

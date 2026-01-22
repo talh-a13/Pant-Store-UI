@@ -3,8 +3,8 @@ import 'package:plant_app/models/plant.dart';
 import 'package:plant_app/models/recently_viewed.dart';
 
 List<Plant> recommended = [
-
   Plant(
+    id: '1',
     plantType: 'Indoor',
     plantName: 'Palm',
     plantPrice: 480.0,
@@ -13,6 +13,7 @@ List<Plant> recommended = [
     image: 'images/Palm.png',
   ),
   Plant(
+    id: '2',
     plantType: 'Outdoor',
     plantName: 'Ficus Alli',
     plantPrice: 600.0,
@@ -21,6 +22,7 @@ List<Plant> recommended = [
     image: 'images/ficuss_alii.png',
   ),
   Plant(
+    id: '3',
     plantType: 'Outdoor',
     plantName: 'Money Bonsai',
     plantPrice: 4000.0,
@@ -29,6 +31,7 @@ List<Plant> recommended = [
     image: 'images/money_bonsai.png',
   ),
   Plant(
+    id: '4',
     plantType: 'Outdoor',
     plantName: 'Juniper Bonsai',
     plantPrice: 2000.0,
@@ -37,6 +40,7 @@ List<Plant> recommended = [
     image: 'images/Juniper_Bonsai.png',
   ),
   Plant(
+    id: '5',
     plantType: 'Indoor',
     plantName: 'Snake Plant',
     plantPrice: 80.0,
@@ -44,7 +48,6 @@ List<Plant> recommended = [
     metrics: PlantMetrics('4', '52%', '4.2"'),
     image: 'images/snake_plant.png',
   )
-
 ];
 
 List<ViewHistory> viewed = [
@@ -53,49 +56,5 @@ List<ViewHistory> viewed = [
   ViewHistory('Stephine', 'It\'s spines do grow.', 'images/stephine_2.jpg'),
 ];
 
-List<CartItem> cartItems = [
-  CartItem(
-    Plant(
-      plantType: 'Indoor',
-      plantName: 'Snake Plant',
-      plantPrice: 100,
-      image: 'images/snake_plant.png',
-      stars: 3.5,
-      metrics: PlantMetrics('', '', ''),
-    ),
-    2,
-  ),
-  CartItem(
-    Plant(
-      plantType: 'Indoor',
-      plantName: 'Ficus Alli',
-      plantPrice: 600,
-      image: 'images/ficuss_alii.png',
-      stars: 3.5,
-      metrics: PlantMetrics('', '', ''),
-    ),
-    2,
-  ),
-  CartItem(
-    Plant(
-      plantType: 'Indoor',
-      plantName: 'Juniper Bonsai',
-      plantPrice: 2000,
-      image: 'images/Juniper_Bonsai.png',
-      stars: 3.5,
-      metrics: PlantMetrics('', '', ''),
-    ),
-    2,
-  ),
-  CartItem(
-    Plant(
-      plantType: 'Indoor',
-      plantName: 'Calathea',
-      plantPrice: 100,
-      image: 'images/calathea.jpg',
-      stars: 3.5,
-      metrics: PlantMetrics('', '', ''),
-    ),
-    2,
-  ),
-];
+// Cart items will be managed by ShopViewModel
+List<CartItem> cartItems = [];

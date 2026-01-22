@@ -3,6 +3,9 @@ import 'package:plant_app/components/bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/cart_screen.dart';
 import 'package:plant_app/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:plant_app/view_models/shop_view_model.dart';
+import 'package:plant_app/screens/favorites_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -18,9 +21,9 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
+    const FavoritesScreen(),
+    const HomeScreen(), // Placeholder for Orders
+    const HomeScreen(), // Placeholder for Profile
   ];
 
   @override
@@ -45,19 +48,52 @@ class _MainScreenState extends State<MainScreen> {
               ),
               onTap: () {},
             ),
-            CircleAvatar(
-              backgroundColor: kDarkGreenColor,
-              radius: 22.0,
-              child: IconButton(
-                color: Colors.white,
-                splashRadius: 28.0,
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
+            Stack(
+              children: [
+                CircleAvatar(
+                  backgroundColor: kDarkGreenColor,
+                  radius: 22.0,
+                  child: IconButton(
+                    color: Colors.white,
+                    splashRadius: 28.0,
+                    icon: const Icon(
+                      Icons.shopping_cart_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, CartScreen.id);
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, CartScreen.id);
-                },
-              ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Consumer<ShopViewModel>(
+                    builder: (context, shop, child) {
+                      if (shop.cartCount == 0) return const SizedBox.shrink();
+                      return Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          '${shop.cartCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -73,7 +109,7 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: const [
           Icon(Icons.home),
-          Icon(Icons.image_search_outlined),
+          Icon(Icons.bookmark_outline), // Search/Favorites icon
           Icon(Icons.receipt),
           Icon(Icons.person),
         ],
