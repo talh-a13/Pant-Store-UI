@@ -204,7 +204,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: kDarkGreenColor,
+                        backgroundColor: kDarkGreenColor,
                         elevation: 20.0,
                         textStyle: GoogleFonts.poppins(
                           fontSize: 15.0,

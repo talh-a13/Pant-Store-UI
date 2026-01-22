@@ -17,10 +17,10 @@ class _MainScreenState extends State<MainScreen> {
   int selectedIndex = 0;
 
   List<Widget> screens = [
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
   ];
 
   @override

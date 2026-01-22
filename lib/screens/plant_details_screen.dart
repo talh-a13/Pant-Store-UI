@@ -220,7 +220,7 @@ class _PlantDetailsState extends State<PlantDetails> {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: kDarkGreenColor,
+                            backgroundColor: kDarkGreenColor,
                             elevation: 20.0,
                             textStyle: GoogleFonts.poppins(
                               fontSize: 15.0,
